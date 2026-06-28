@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>boring-phone.co — Dopamine Detox</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>boring&middot;phone</h1>
+      <p class="tagline">Dopamine detox, one session at a time.</p>
+
+      <div id="presets" class="presets"></div>
+
+      <div class="timer">
+        <div id="time" class="time">25:00</div>
+        <div class="track"><div id="bar" class="bar"></div></div>
+      </div>
+
+      <div class="controls">
+        <button id="start" class="primary">Start</button>
+        <button id="reset">Reset</button>
+      </div>
+
+      <p id="status" class="status">Ready when you are.</p>
+      <p class="streak-line">Current streak: <span id="streak">0</span> day(s)</p>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "boring-phone",
+  "version": "0.1.0",
+  "description": "Dopamine detox — a focus timer web app",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "serve": "npx serve ."
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
+}
