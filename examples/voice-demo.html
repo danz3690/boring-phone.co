@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Demo — boring-phone.co</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #0f1115;
+        color: #e7e9ee;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+      .card {
+        width: min(460px, 92vw);
+        background: #171a21;
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+      h1 { margin: 0 0 4px; }
+      p.sub { color: #9aa1ad; margin: 0 0 20px; }
+      textarea {
+        width: 100%;
+        min-height: 90px;
+        resize: vertical;
+        border-radius: 10px;
+        border: 1px solid #262b35;
+        background: #0f1115;
+        color: #e7e9ee;
+        padding: 12px;
+        font: inherit;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 14px;
+        cursor: pointer;
+        border: none;
+        background: #6ee7b7;
+        color: #08221a;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 12px 20px;
+        border-radius: 10px;
+      }
+      button:disabled { opacity: 0.5; cursor: default; }
+      .status { color: #9aa1ad; margin-top: 12px; min-height: 1.2em; }
+      audio { width: 100%; margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Voice Demo</h1>
+      <p class="sub">
+        Type something and hear it via ElevenLabs. The API key stays on the
+        server — this page only calls <code>/api/tts</code>.
+      </p>
+
+      <textarea id="text">Welcome to your dopamine detox.</textarea>
+      <button id="speak">Speak</button>
+      <p id="status" class="status"></p>
+      <audio id="player" controls hidden></audio>
+    </main>
+
+    <script>
+      const els = {
+        text: document.getElementById("text"),
+        speak: document.getElementById("speak"),
+        status: document.getElementById("status"),
+        player: document.getElementById("player"),
+      };
+
+      let lastUrl = null;
+
+      els.speak.addEventListener("click", async () => {
+        const text = els.text.value.trim();
+        if (!text) {
+          els.status.textContent = "Enter some text first.";
+          return;
+        }
+
+        els.speak.disabled = true;
+        els.status.textContent = "Synthesizing…";
+
+        try {
+          // NOTE: no API key here — the server holds it and proxies the call.
+          const res = await fetch("/api/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+
+          if (!res.ok) {
+            const { error } = await res.json().catch(() => ({}));
+            throw new Error(error || `Request failed (${res.status})`);
+          }
+
+          const blob = await res.blob();
+          if (lastUrl) URL.revokeObjectURL(lastUrl);
+          lastUrl = URL.createObjectURL(blob);
+
+          els.player.src = lastUrl;
+          els.player.hidden = false;
+          await els.player.play().catch(() => {});
+          els.status.textContent = "Done.";
+        } catch (err) {
+          els.status.textContent = err.message;
+        } finally {
+          els.speak.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
