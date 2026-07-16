@@ -20,6 +20,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
+    <!-- Enables optional /sounds/*.wav overrides (see public/sounds/README.md). -->
+    <meta name="bpc-sound-overrides" content="enabled" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />

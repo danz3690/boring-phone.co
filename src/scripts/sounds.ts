@@ -54,6 +54,10 @@ class RetroSound {
 
   private async preloadOverrides(): Promise<void> {
     if (!this.ctx) return;
+    // Overrides only make sense when the site is served with its /sounds/
+    // folder. A flag in <head> gates this, so single-file/embedded builds that
+    // ship no manifest never make a doomed request. Synth is the default.
+    if (!document.querySelector('meta[name="bpc-sound-overrides"]')) return;
     // Only load override files that are explicitly listed in the manifest, so a
     // default install makes no doomed requests (no 404 noise in the console).
     let names: SoundName[] = [];
