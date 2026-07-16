@@ -1,0 +1,11 @@
+---
+import type { SourceKey } from '../data/research';
+import { citeNumber, citeAnchor } from '../data/cite';
+
+interface Props {
+  source: SourceKey;
+}
+const { source } = Astro.props;
+---
+
+<sup class="cite"><a href={`#${citeAnchor(source)}`} title="Jump to source">[{citeNumber(source)}]</a></sup>

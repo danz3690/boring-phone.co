@@ -1,0 +1,30 @@
+---
+import { orderedSources } from '../data/cite';
+import { citeAnchor } from '../data/cite';
+---
+
+<section id="sources">
+  <h2 class="section-title">📚 BIBLIOGRAPHY 📚</h2>
+  <p class="center small comic">
+    Every number on this page comes from one of these. Go check them — that's the
+    whole point.
+  </p>
+
+  <div class="inset">
+    <ol class="biblio">
+      {
+        orderedSources.map((s) => (
+          <li id={citeAnchor(s.key)}>
+            <a href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.title}
+            </a>
+            {' — '}
+            <i>{s.publisher}</i>, {s.year}.
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <hr class="rainbow-hr" />
+</section>

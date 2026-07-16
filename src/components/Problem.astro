@@ -1,0 +1,34 @@
+---
+import { problemStats } from '../data/research';
+import Cite from './Cite.astro';
+---
+
+<section id="problem">
+  <h2 class="section-title">🔥 SHOCKING FACTS!!! 🔥</h2>
+  <p class="center comic">
+    How much of your one wild and precious life is going to the little glowing
+    rectangle?
+  </p>
+
+  {
+    problemStats.map((s) => (
+      <div class="stat">
+        <span class="stat__value">{s.value}</span>
+        <span class="stat__label">
+          {s.label}
+          <Cite source={s.source} />
+        </span>
+      </div>
+    ))
+  }
+
+  <div class="inset">
+    <p style="margin:0" class="small">
+      That's not a moral failing — those apps are engineered by teams of very
+      smart people to be exactly this hard to put down. Which is also why
+      <b>willpower alone tends to lose</b>. Keep reading. 👇
+    </p>
+  </div>
+
+  <hr class="rainbow-hr" />
+</section>

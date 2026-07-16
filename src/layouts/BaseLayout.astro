@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import { siteMeta } from '../data/research';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = siteMeta.title, description = siteMeta.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Retro tab icon: a tiny CRT-green globe -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23000080'/%3E%3Ctext y='13' x='1' font-size='13'%3E%F0%9F%8C%90%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="browser">
+      <div class="browser__titlebar">
+        <span class="browser__titlebar-text">
+          <span class="browser__globe" aria-hidden="true">🌐</span>
+          {title} — Netscape
+        </span>
+        <span class="browser__winbtns" aria-hidden="true">
+          <span class="browser__winbtn">_</span>
+          <span class="browser__winbtn">□</span>
+          <span class="browser__winbtn">×</span>
+        </span>
+      </div>
+
+      <div class="browser__toolbar">
+        <button class="browser__navbtn" type="button" disabled aria-label="Back">◄ Back</button>
+        <button class="browser__navbtn" type="button" disabled aria-label="Forward">Forward ►</button>
+        <button class="browser__navbtn" type="button" disabled aria-label="Stop">■</button>
+        <span class="browser__address">
+          <span class="lbl">Location:</span>
+          <span>http://www.boring-phone.co/index.html</span>
+        </span>
+      </div>
+
+      <main class="page">
+        <div class="page__inner">
+          <slot />
+        </div>
+      </main>
+    </div>
+
+    <slot name="chrome" />
+  </body>
+</html>

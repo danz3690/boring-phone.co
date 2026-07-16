@@ -1,0 +1,41 @@
+---
+import { coolLinks } from '../data/research';
+import Cite from './Cite.astro';
+---
+
+<section id="links">
+  <h2 class="section-title">🔗 COOL LINKS 🔗</h2>
+  <p class="center comic">
+    Real phones, real tools. Some cost money; some cost nothing but a little
+    resolve.
+  </p>
+
+  <div class="linkgrid">
+    {
+      coolLinks.map((l) => (
+        <div class="linkcard">
+          <h3>
+            <a href={l.url} target="_blank" rel="noopener noreferrer">
+              {l.name} ↗
+            </a>
+            {l.free && <span class="badge-free">FREE</span>}
+          </h3>
+          <p>
+            {l.blurb}
+            {l.source && <Cite source={l.source} />}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="webring">
+    <p>
+      ‹‹ <a href="#top">Home</a> • The Dopamine Detox WebRing • <a href="#proof"
+        >Random Site</a
+      > ››
+    </p>
+  </div>
+
+  <hr class="rainbow-hr" />
+</section>

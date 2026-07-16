@@ -1,0 +1,32 @@
+---
+import { steps } from '../data/research';
+---
+
+<section id="plan">
+  <h2 class="section-title">📋 YOUR 5-STEP PLAN 📋</h2>
+  <p class="center comic">
+    Straight from the actual CBT playbook — no "reset your dopamine" nonsense.
+  </p>
+
+  <ol class="plan">
+    {
+      steps.map((s) => (
+        <li>
+          <h3>{s.title}</h3>
+          <p>{s.detail}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="center" style="margin-top:16px">
+    <button class="btn95" type="button" data-sound="mail">
+      💌 You've Got Mail! Sign the Guestbook
+    </button>
+  </p>
+  <p class="center small muted">
+    (The guestbook is decorative — but the chime is real. 🔊)
+  </p>
+
+  <hr class="rainbow-hr" />
+</section>

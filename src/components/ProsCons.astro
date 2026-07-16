@@ -1,0 +1,32 @@
+---
+import { pros, cons } from '../data/research';
+---
+
+<section id="proscons">
+  <h2 class="section-title">⚖️ GOING BORING: PROS &amp; CONS ⚖️</h2>
+  <p class="center comic">
+    We're not going to pretend it's all upside. Here's the honest ledger.
+  </p>
+
+  <div class="proscons">
+    <div class="proscons__col proscons__col--pro">
+      <h3>👍 THE GOOD</h3>
+      <ul class="proscons--pro">
+        {pros.map((p) => <li>{p.text}</li>)}
+      </ul>
+    </div>
+    <div class="proscons__col proscons__col--con">
+      <h3>👎 THE TRADEOFFS</h3>
+      <ul class="proscons--con">
+        {cons.map((c) => <li>{c.text}</li>)}
+      </ul>
+    </div>
+  </div>
+
+  <p class="center small muted" style="margin-top:12px">
+    Most people don't need to buy a $599 e-ink phone. The cheapest wins are free
+    — see the plan below. 👇
+  </p>
+
+  <hr class="rainbow-hr" />
+</section>

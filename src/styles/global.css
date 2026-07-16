@@ -1,0 +1,523 @@
+/* =========================================================================
+   boring-phone.co — 1996 stylesheet
+   Web-safe colors, beveled chrome, tiled backgrounds, and blinking text.
+   Best viewed at 800x600 in Netscape Navigator 3.0. (It works everywhere.)
+   ========================================================================= */
+
+:root {
+  --win-face: #c0c0c0;
+  --win-light: #ffffff;
+  --win-shadow: #808080;
+  --win-dark: #000000;
+  --win-navy: #000080;
+  --win-teal: #008080;
+  --link: #0000ee;
+  --link-visited: #551a8b;
+  --paper: #ffffff;
+  --ink: #000000;
+  --hot: #ff0000;
+  --lime: #00ff00;
+  --yellow: #ffff00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  color: var(--ink);
+  /* Classic teal "desktop" behind the browser window. */
+  background-color: #008080;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 8px);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  image-rendering: pixelated;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+}
+a:visited {
+  color: var(--link-visited);
+}
+a:hover {
+  color: var(--hot);
+  background: var(--yellow);
+}
+
+/* ------------------------------------------------------------------ *
+ * Fake Netscape / Windows 95 browser window
+ * ------------------------------------------------------------------ */
+.browser {
+  max-width: 820px;
+  margin: 16px auto;
+  background: var(--win-face);
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.browser__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 4px;
+  margin: 3px;
+  background: linear-gradient(90deg, var(--win-navy), #1084d0);
+  color: #fff;
+  font-family: 'Trebuchet MS', Tahoma, 'MS Sans Serif', sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+}
+.browser__titlebar-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.browser__globe {
+  font-size: 14px;
+}
+.browser__winbtns {
+  display: flex;
+  gap: 2px;
+}
+.browser__winbtn {
+  width: 18px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--win-face);
+  color: #000;
+  font-family: 'Marlett', 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+}
+
+.browser__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-top: 1px solid var(--win-light);
+}
+.browser__navbtn {
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 12px;
+  padding: 2px 8px;
+  background: var(--win-face);
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  cursor: not-allowed;
+  color: #000;
+}
+.browser__address {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--win-light);
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 2px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.browser__address .lbl {
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #444;
+}
+
+/* The actual "web page" inside the window. */
+.page {
+  background: var(--paper);
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  margin: 3px;
+  padding: 0;
+  /* tiled "wallpaper" like a 1996 homepage */
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(circle at 8px 8px, rgba(0, 0, 128, 0.06) 1.5px, transparent 2px);
+  background-size: 24px 24px;
+}
+.page__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8px 18px 28px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Marquee (CSS, no deprecated <marquee> element)
+ * ------------------------------------------------------------------ */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #000;
+  color: var(--lime);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  border-top: 2px solid var(--win-shadow);
+  border-bottom: 2px solid var(--win-shadow);
+  padding: 4px 0;
+}
+.marquee > span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 18s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* Blinking text, the crown jewel of 1996. */
+.blink {
+  animation: blink 1s steps(2, start) infinite;
+  font-weight: bold;
+}
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+/* Rainbow divider bar. */
+.rainbow-hr {
+  height: 6px;
+  border: 0;
+  margin: 18px 0;
+  background: linear-gradient(90deg,
+    #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+  background-size: 200% 100%;
+  animation: rainbow-slide 6s linear infinite;
+}
+@keyframes rainbow-slide {
+  to { background-position: 200% 0; }
+}
+
+/* "Under construction" barber-pole strip. */
+.construction {
+  margin: 14px 0;
+  padding: 6px 10px;
+  text-align: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  color: #000;
+  background: repeating-linear-gradient(45deg,
+    #ffd700 0 14px, #000 14px 28px);
+  background-size: 40px 40px;
+  animation: barber 1s linear infinite;
+  border: 2px solid #000;
+}
+.construction span {
+  background: #ffd700;
+  padding: 2px 8px;
+  border: 1px solid #000;
+}
+@keyframes barber {
+  to { background-position: 40px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee > span,
+  .rainbow-hr,
+  .construction { animation: none; }
+  .blink { animation: none; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Headings & typography
+ * ------------------------------------------------------------------ */
+h1, h2, h3 {
+  font-family: 'Trebuchet MS', 'Comic Sans MS', sans-serif;
+  line-height: 1.1;
+}
+.section-title {
+  text-align: center;
+  font-size: 26px;
+  color: var(--win-navy);
+  text-shadow: 1px 1px 0 #a0a0ff;
+  margin: 6px 0 4px;
+}
+.comic {
+  font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+}
+p { line-height: 1.5; }
+.center { text-align: center; }
+.small { font-size: 12px; }
+.muted { color: #444; }
+
+/* Beveled 3D buttons. */
+.btn95 {
+  display: inline-block;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+  padding: 8px 18px;
+  background: var(--win-face);
+  border: 3px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  cursor: pointer;
+}
+.btn95:hover { background: #d4d0c8; color: #000; }
+.btn95:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+
+/* ------------------------------------------------------------------ *
+ * Content blocks: inset panels, tables, stat readouts
+ * ------------------------------------------------------------------ */
+.inset {
+  background: var(--win-face);
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 12px 14px;
+  margin: 12px 0;
+}
+
+.retro-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 15px;
+}
+.retro-table th,
+.retro-table td {
+  border: 2px solid var(--win-shadow);
+  padding: 8px 10px;
+  vertical-align: top;
+}
+.retro-table th {
+  background: var(--win-navy);
+  color: #fff;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.retro-table caption {
+  font-family: 'Comic Sans MS', sans-serif;
+  font-weight: bold;
+  color: var(--hot);
+  margin-bottom: 6px;
+}
+
+/* Big glowing stat number. */
+.stat {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin: 10px 0;
+  padding: 8px 10px;
+  background: #000;
+  color: var(--lime);
+  border: 2px solid var(--win-shadow);
+  font-family: 'Courier New', monospace;
+}
+.stat__value {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--yellow);
+  white-space: nowrap;
+  text-shadow: 0 0 6px rgba(255, 255, 0, 0.5);
+}
+.stat__label { font-size: 14px; line-height: 1.35; }
+.stat sup a { color: #00ffff; }
+
+/* Pros / cons two-column. */
+.proscons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.proscons__col { padding: 10px 12px; border: 2px solid var(--win-shadow); }
+.proscons__col--pro { background: #e8ffe8; }
+.proscons__col--con { background: #ffecec; }
+.proscons h3 { margin: 0 0 8px; text-align: center; }
+.proscons ul { list-style: none; margin: 0; padding: 0; }
+.proscons li { margin: 8px 0; padding-left: 22px; position: relative; line-height: 1.4; }
+.proscons--pro li::before { content: '✓'; position: absolute; left: 0; color: #008000; font-weight: bold; }
+.proscons--con li::before { content: '✗'; position: absolute; left: 0; color: #cc0000; font-weight: bold; }
+
+/* Cool links / webring cards. */
+.linkgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.linkcard {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 10px 12px;
+}
+.linkcard h3 { margin: 0 0 4px; font-size: 16px; }
+.linkcard p { margin: 0 0 8px; font-size: 13px; }
+.badge-free {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  background: var(--lime);
+  color: #000;
+  border: 1px solid #000;
+  padding: 0 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Numbered plan. */
+.plan { list-style: none; counter-reset: step; margin: 0; padding: 0; }
+.plan li {
+  counter-increment: step;
+  position: relative;
+  margin: 12px 0;
+  padding: 10px 12px 10px 52px;
+  background: #fffbe6;
+  border: 2px solid var(--win-shadow);
+}
+.plan li::before {
+  content: counter(step);
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: var(--win-navy);
+  color: var(--yellow);
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px solid var(--win-light);
+}
+.plan h3 { margin: 0 0 3px; font-size: 15px; }
+.plan p { margin: 0; font-size: 13px; }
+
+/* Bibliography. */
+.biblio { font-size: 13px; padding-left: 20px; }
+.biblio li { margin: 8px 0; line-height: 1.4; }
+
+/* 88x31 badges. */
+.badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 12px 0; }
+.badge88 {
+  width: 88px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  font-size: 9px;
+  font-weight: bold;
+  line-height: 1.05;
+  border: 1px solid #000;
+  text-decoration: none;
+  color: #fff;
+  padding: 2px;
+}
+.badge88.b1 { background: #000080; color: #fff; }
+.badge88.b2 { background: #000; color: #0f0; }
+.badge88.b3 { background: #800000; color: #ffd700; }
+.badge88.b4 { background: #4b0082; color: #fff; }
+.badge88.b5 { background: #008080; color: #fff; }
+
+/* Hit counter. */
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+.counter__digits {
+  background: #000;
+  color: var(--lime);
+  padding: 2px 8px;
+  letter-spacing: 4px;
+  border: 2px solid var(--win-shadow);
+  font-weight: bold;
+}
+
+/* Webring nav. */
+.webring {
+  text-align: center;
+  font-size: 13px;
+  font-family: 'Trebuchet MS', sans-serif;
+  margin: 10px 0;
+}
+
+/* Footer. */
+.retro-footer {
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Sound toggle — fixed, styled like a Win95 taskbar button. */
+.sound-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 50;
+  font-family: 'Trebuchet MS', Tahoma, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px;
+  background: var(--win-face);
+  border: 3px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  cursor: pointer;
+  color: #000;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+.sound-toggle:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+
+/* Splash / ENTER overlay. */
+.splash {
+  text-align: center;
+  padding: 24px 10px 10px;
+}
+.splash__logo {
+  font-family: 'Comic Sans MS', 'Trebuchet MS', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--win-navy);
+  text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff;
+  line-height: 1.05;
+  margin: 8px 0;
+}
+.splash__sub { font-size: 16px; margin: 6px 0 18px; }
+.globe-spin { display: inline-block; font-size: 34px; animation: spin 3s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .globe-spin { animation: none; } }
+
+/* ------------------------------------------------------------------ *
+ * Responsive: it's 1996, but phones exist now (ironically)
+ * ------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .proscons, .linkgrid { grid-template-columns: 1fr; }
+  .browser { margin: 6px; }
+  .page__inner { padding: 8px 12px 24px; }
+  .splash__logo { font-size: 30px; }
+  .section-title { font-size: 22px; }
+  .browser__toolbar { flex-wrap: wrap; }
+  .stat { flex-direction: column; gap: 4px; }
+  .stat__value { font-size: 26px; }
+}

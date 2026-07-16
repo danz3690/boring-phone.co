@@ -1,0 +1,39 @@
+---
+import { evidenceStats } from '../data/research';
+import Cite from './Cite.astro';
+---
+
+<section id="proof">
+  <h2 class="section-title">✅ PROOF IT ACTUALLY WORKS ✅</h2>
+  <p class="center comic">
+    Not a testimonial. Not a guru. A preregistered randomized controlled trial.
+  </p>
+
+  {
+    evidenceStats.map((s) => (
+      <div class="stat">
+        <span class="stat__value">{s.value}</span>
+        <span class="stat__label">
+          {s.label}
+          <Cite source={s.source} />
+        </span>
+      </div>
+    ))
+  }
+
+  <div class="inset">
+    <p style="margin:0 0 6px">
+      In the 2025 <b>PNAS Nexus</b> study, researchers had 467 people block
+      mobile internet on their phones for two weeks — turning a smartphone into a
+      de facto dumb phone. The reduction in depressive symptoms was
+      <b>larger than what's typically seen with antidepressants</b>, and on par
+      with a course of CBT.<Cite source="pnasNexus" />
+    </p>
+    <p style="margin:0" class="small muted">
+      You don't have to go that far to benefit — but it's a striking demo of how
+      much of the weight our phones quietly carry.
+    </p>
+  </div>
+
+  <hr class="rainbow-hr" />
+</section>

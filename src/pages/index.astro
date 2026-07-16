@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Splash from '../components/Splash.astro';
+import Problem from '../components/Problem.astro';
+import MythTruth from '../components/MythTruth.astro';
+import Evidence from '../components/Evidence.astro';
+import ProsCons from '../components/ProsCons.astro';
+import CoolLinks from '../components/CoolLinks.astro';
+import FiveStepPlan from '../components/FiveStepPlan.astro';
+import Bibliography from '../components/Bibliography.astro';
+import RetroFooter from '../components/RetroFooter.astro';
+import SoundToggle from '../components/SoundToggle.astro';
+---
+
+<BaseLayout>
+  <Splash />
+  <Problem />
+  <MythTruth />
+  <Evidence />
+  <ProsCons />
+  <CoolLinks />
+  <FiveStepPlan />
+  <Bibliography />
+  <RetroFooter />
+
+  <SoundToggle slot="chrome" />
+</BaseLayout>
+
+<script>
+  import '../scripts/sounds.ts';
+</script>
