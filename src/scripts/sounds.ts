@@ -45,11 +45,25 @@ class RetroSound {
     if (!AC) return;
     this.ctx = new AC();
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.25;
+    this.master.gain.value = 0.35;
     this.master.connect(this.ctx.destination);
     this.unlocked = true;
+    // Resume + prime within the caller's gesture so iOS/Safari and autoplay
+    // policies actually let the first sound through.
+    void this.ctx.resume();
+    this.prime();
     // Try to load any user-supplied override files in the background.
     void this.preloadOverrides();
+  }
+
+  /** Play one inaudible sample to satisfy Safari/iOS "first sound" quirks. */
+  private prime(): void {
+    if (!this.ctx || !this.master) return;
+    const buf = this.ctx.createBuffer(1, 1, this.ctx.sampleRate);
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(this.master);
+    src.start(0);
   }
 
   private async preloadOverrides(): Promise<void> {
@@ -289,9 +303,21 @@ function wireInteractions(): void {
   });
 }
 
+/** Unlock (create + resume) the AudioContext on the very first user gesture,
+ * so it's already running by the time any sound is requested — some browsers
+ * only allow resume() directly inside a gesture handler. */
+function wireFirstGestureUnlock(): void {
+  const unlock = () => sound.unlock();
+  const opts = { once: true, capture: true } as const;
+  window.addEventListener('pointerdown', unlock, opts);
+  window.addEventListener('keydown', unlock, opts);
+  window.addEventListener('touchstart', unlock, opts);
+}
+
 function boot(): void {
   initSoundToggle();
   wireInteractions();
+  wireFirstGestureUnlock();
 }
 
 if (document.readyState === 'loading') {
