@@ -213,6 +213,9 @@ class RetroSound {
 
 const sound = new RetroSound();
 
+// Expose the engine so other scripts (e.g. the guestbook) can play sounds.
+(window as unknown as { __retroSound?: RetroSound }).__retroSound = sound;
+
 function throttle<T extends (...a: never[]) => void>(fn: T, ms: number): T {
   let last = 0;
   return ((...args: Parameters<T>) => {

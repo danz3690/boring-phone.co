@@ -1,0 +1,107 @@
+---
+import { guestbookSeed } from '../data/guestbook';
+---
+
+<section id="guestbook">
+  <h2 class="section-title">📖 SIGN MY GUESTBOOK 📖</h2>
+  <p class="center comic">
+    You've made it this far — leave your mark on the World Wide Web!
+  </p>
+
+  <form class="guestbook-form inset" id="gb-form" novalidate>
+    <div class="gb-field">
+      <label for="gb-name">Your name / handle:</label>
+      <input id="gb-name" name="name" type="text" maxlength="40" required
+        placeholder="e.g. CoolDude97" autocomplete="off" />
+    </div>
+    <div class="gb-field">
+      <label for="gb-loc">Where are you from? (optional)</label>
+      <input id="gb-loc" name="location" type="text" maxlength="40"
+        placeholder="e.g. Toledo, OH" autocomplete="off" />
+    </div>
+    <div class="gb-field">
+      <label for="gb-msg">Your message:</label>
+      <textarea id="gb-msg" name="message" maxlength="240" rows="3" required
+        placeholder="Say something nice (240 chars, it's the 90s)"></textarea>
+    </div>
+    <p class="center" style="margin:6px 0 0">
+      <button class="btn95" type="submit" id="gb-submit">✍️ Sign It!</button>
+    </p>
+    <p class="gb-note center small muted" id="gb-note" hidden role="status"></p>
+  </form>
+
+  <p class="center small muted" style="margin:8px 0 12px">
+    (Signatures are decorative and reset when you reload — it's 1996, we don't
+    have a database. 💾)
+  </p>
+
+  <div id="gb-entries">
+    {
+      guestbookSeed.map((e) => (
+        <div class="gb-entry">
+          <div class="gb-entry__meta">
+            ✒️ {e.name}
+            {e.location && <span class="muted"> — {e.location}</span>}
+            <span class="gb-entry__date"> • {e.date}</span>
+          </div>
+          <div class="gb-entry__msg">{e.message}</div>
+        </div>
+      ))
+    }
+  </div>
+
+  <hr class="rainbow-hr" />
+</section>
+
+<script>
+  import { RETRO_DATE } from '../data/now';
+
+  const form = document.getElementById('gb-form') as HTMLFormElement | null;
+  const entries = document.getElementById('gb-entries');
+  const note = document.getElementById('gb-note');
+
+  function escapeHtml(s: string): string {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  form?.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    if (!entries) return;
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const location = String(data.get('location') ?? '').trim();
+    const message = String(data.get('message') ?? '').trim();
+
+    if (!name || !message) {
+      if (note) {
+        note.textContent = '⚠️ Please enter a name and a message!';
+        note.hidden = false;
+      }
+      return;
+    }
+
+    const el = document.createElement('div');
+    el.className = 'gb-entry gb-entry--new';
+    const loc = location
+      ? ` <span class="muted">— ${escapeHtml(location)}</span>`
+      : '';
+    el.innerHTML =
+      `<div class="gb-entry__meta">✒️ ${escapeHtml(name)}${loc}` +
+      `<span class="gb-entry__date"> • ${RETRO_DATE} (just now!)</span></div>` +
+      `<div class="gb-entry__msg">${escapeHtml(message)}</div>`;
+    entries.prepend(el);
+
+    // Play the "you've got mail" chime via the exposed sound engine.
+    (window as unknown as { __retroSound?: { play: (n: string) => void } })
+      .__retroSound?.play('mail');
+
+    form.reset();
+    if (note) {
+      note.textContent = '💌 Thanks for signing! (this one is just for you)';
+      note.hidden = false;
+    }
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
