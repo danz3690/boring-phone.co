@@ -414,38 +414,13 @@ section { padding: clamp(5rem, 14vh, 9rem) var(--gutter); }
   transition: opacity 0.45s var(--ease-out), scale 0.8s var(--ease-out);
 }
 .preview__img.is-current { opacity: 1; scale: 1; }
-.preview__img span {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.6rem;
-  color: rgba(233, 230, 223, 0.9);
-  mix-blend-mode: overlay;
-}
 
-/* abstract poster art — pure CSS, no assets */
-.preview__img--p1 {
-  background:
-    radial-gradient(circle at 25% 30%, #2a3d4f 0%, transparent 55%),
-    radial-gradient(circle at 80% 75%, #16232e 0%, transparent 60%),
-    linear-gradient(160deg, #0e1a24, #05090d);
-}
-.preview__img--p2 {
-  background:
-    radial-gradient(circle at 70% 25%, rgba(255, 92, 38, 0.5) 0%, transparent 50%),
-    radial-gradient(circle at 30% 80%, #33150a 0%, transparent 60%),
-    linear-gradient(200deg, #1d0e07, #0a0503);
-}
-.preview__img--p3 {
-  background:
-    repeating-linear-gradient(0deg, rgba(233, 230, 223, 0.05) 0 1px, transparent 1px 14px),
-    linear-gradient(180deg, #14141a, #08080c);
-}
-.preview__img--p4 {
-  background:
-    radial-gradient(circle at 50% 45%, #1e3326 0%, transparent 55%),
-    repeating-radial-gradient(circle at 50% 45%, transparent 0 26px, rgba(233, 230, 223, 0.06) 26px 27px),
-    linear-gradient(180deg, #0b120d, #050805);
-}
+/* project shots (1200×900, 4:3 — same ratio as the card) */
+.preview__img { background-color: #0c0c0e; background-size: cover; background-position: center; }
+.preview__img--p1 { background-image: url("assets/ledger.png"); }
+.preview__img--p2 { background-image: url("assets/phone.png"); }
+.preview__img--p3 { background-image: url("assets/reader.png"); }
+.preview__img--p4 { background-image: url("assets/maps.png"); }
 
 /* ============ About ============ */
 
