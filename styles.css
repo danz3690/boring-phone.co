@@ -207,6 +207,46 @@ body::before{
 .contact__mail:hover{text-decoration:underline;color:#e0631a}
 .contact__ps{margin-top:16px;font-size:.82rem;color:#5a5a4f;font-style:italic}
 
+/* ---- PHOTOS / SLIDESHOW ---- */
+.win--photos2{width:min(600px,94vw)}
+.slideshow{padding:12px}
+.slide{position:relative;background:#000;border:2px solid #1a2740;border-radius:4px;overflow:hidden;aspect-ratio:900/560}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide__nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:52px;border:none;cursor:pointer;
+  color:#fff;font-size:1.6rem;background:rgba(0,0,0,.35);transition:background .2s}
+.slide__nav:hover{background:rgba(0,0,0,.6)}
+.slide__nav--prev{left:0;border-radius:0 6px 6px 0}
+.slide__nav--next{right:0;border-radius:6px 0 0 6px}
+.slide__bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.15)}
+.slide__bar i{display:block;height:100%;width:0;background:#ff7a1a}
+.slide__bar i.run{transition:width linear}
+.slide__controls{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.slide__cap{font-size:.86rem;color:#333;font-weight:700;flex:1;min-width:120px}
+.slide__dots{display:flex;gap:6px}
+.slide__dots button{width:10px;height:10px;border-radius:50%;border:1px solid #7089a8;background:#cfd6e2;cursor:pointer;padding:0}
+.slide__dots button.is-on{background:#245edb;border-color:#1740a0}
+
+/* ---- SNAKE ---- */
+.win--snake{width:min(360px,94vw)}
+.snakebody{padding:12px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.snake__hud{width:100%;max-width:304px;display:flex;justify-content:space-between;
+  font-family:"DejaVu Sans Mono","Courier New",monospace;font-size:.8rem;color:#173a24;
+  background:#9fd8ac;border:1px solid #16341f;border-radius:4px 4px 0 0;padding:4px 10px}
+.snake__hud b{color:#0c2612}
+.snake__screen{position:relative;width:100%;max-width:304px}
+#snakeCanvas{display:block;width:100%;height:auto;image-rendering:pixelated;
+  background:#8ccf9c;border:3px solid #16341f;border-radius:0 0 6px 6px}
+.snake__overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:rgba(16,40,24,.82);color:#dfffe8;border-radius:0 0 4px 4px;text-align:center;padding:12px}
+.snake__overlay.is-hidden{display:none}
+.snake__overlay p{font-family:"DejaVu Sans Mono","Courier New",monospace;font-size:1.4rem;letter-spacing:.15em}
+.snake__overlay small{opacity:.7;font-size:.72rem;max-width:22ch;line-height:1.3}
+.snake__pad{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:2px}
+.snake__pad .dbtn__mid{display:flex;gap:46px}
+.dbtn{width:44px;height:38px;border:1px solid #16341f;border-radius:6px;cursor:pointer;font-size:1rem;color:#0c2612;
+  background:linear-gradient(#bfe7c9,#7cc596);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.dbtn:active{background:linear-gradient(#7cc596,#bfe7c9)}
+
 /* ---- BIN ---- */
 .win--bin{width:min(400px,90vw)}
 .bin__row{display:flex;gap:14px;align-items:flex-start;padding:6px 0 16px}
