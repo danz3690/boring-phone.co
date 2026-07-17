@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dan Zero — Designer &amp; Developer</title>
+  <meta name="description" content="Independent designer &amp; developer. I make calm interfaces for loud problems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- Intro curtain -->
+  <div class="curtain" aria-hidden="true">
+    <span class="curtain__word">Dan Zero</span>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+  </div>
+
+  <!-- Grain -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav__name" href="#top" data-cursor="link">Dan Zero</a>
+    <p class="nav__meta">
+      <span class="nav__dot" aria-hidden="true"></span>
+      Available for work — <span data-local-time>––:––</span> local
+    </p>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#work" data-cursor="link">Work</a>
+      <a href="#about" data-cursor="link">About</a>
+      <a href="#contact" data-cursor="link">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <h1 class="hero__statement">
+        <span class="line"><span class="line__inner">I make <em>calm</em></span></span>
+        <span class="line"><span class="line__inner">interfaces for</span></span>
+        <span class="line"><span class="line__inner">loud problems.</span></span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__note reveal">Independent designer &amp; developer.<br />Currently: fewer things, done properly.</p>
+        <p class="hero__scroll reveal" aria-hidden="true">Scroll<span class="hero__scroll-line"></span></p>
+      </div>
+      <div class="hero__glow" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="work" id="work">
+      <div class="work__head reveal">
+        <h2 class="section-label">Selected work</h2>
+        <p class="work__count">04</p>
+      </div>
+
+      <ul class="work__list">
+        <li>
+          <a class="project reveal" href="#contact" data-cursor="view" data-preview="p1">
+            <span class="project__index">01</span>
+            <span class="project__title">Ledger, quieted</span>
+            <span class="project__meta">Fintech — product design<span class="project__year">2026</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="project reveal" href="#contact" data-cursor="view" data-preview="p2">
+            <span class="project__index">02</span>
+            <span class="project__title">A phone that shuts up</span>
+            <span class="project__meta">Hardware — brand &amp; site<span class="project__year">2025</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="project reveal" href="#contact" data-cursor="view" data-preview="p3">
+            <span class="project__index">03</span>
+            <span class="project__title">Night-shift reader</span>
+            <span class="project__meta">Editorial — design &amp; build<span class="project__year">2025</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="project reveal" href="#contact" data-cursor="view" data-preview="p4">
+            <span class="project__index">04</span>
+            <span class="project__title">Maps for one city</span>
+            <span class="project__meta">Civic — interaction design<span class="project__year">2024</span></span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Cursor-following preview -->
+      <div class="preview" aria-hidden="true">
+        <div class="preview__inner">
+          <div class="preview__img preview__img--p1"></div>
+          <div class="preview__img preview__img--p2"></div>
+          <div class="preview__img preview__img--p3"></div>
+          <div class="preview__img preview__img--p4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about" id="about">
+      <h2 class="section-label reveal">Approach</h2>
+      <p class="about__text reveal">
+        Ten years of shipping things taught me one lesson worth keeping:
+        <em>restraint reads as confidence.</em> I take on a few projects a year
+        and stay from the first sketch to the last deploy — design and code,
+        one pair of hands.
+      </p>
+      <ul class="about__facts">
+        <li class="reveal"><span>Design</span>Identity, product, typography</li>
+        <li class="reveal"><span>Build</span>Front-end, prototypes, motion</li>
+        <li class="reveal"><span>Advise</span>Simplifying what grew too loud</li>
+      </ul>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="contact">
+      <h2 class="section-label reveal">Contact</h2>
+      <p class="contact__lede reveal">
+        No form. No calendar link. No “team” —<br class="contact__br" />
+        it’s just me, and I read everything.
+      </p>
+      <a class="contact__email reveal" href="mailto:dan@boring-phone.co" data-cursor="link">
+        <span class="contact__email-text">dan@boring-phone.co</span>
+      </a>
+      <p class="contact__ps reveal">
+        Tell me what’s keeping you up at night. I usually reply within a day —
+        slower on Sundays, that’s the whole point.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Dan Zero</p>
+    <p class="footer__quiet">Made slowly, on purpose.</p>
+    <a href="#top" data-cursor="link">Back to top ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
