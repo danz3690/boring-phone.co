@@ -323,14 +323,8 @@ body::before{
 .taskbtn.is-active{background:linear-gradient(#1a4bb5,#1e56cf);box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}
 .tray{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;
   background:linear-gradient(#189ad6,#1a75c9);box-shadow:inset 1px 0 0 #1341a0, inset 2px 0 0 #4aa3e0}
-.tray__snd,.tray__read{background:none;border:none;cursor:pointer;font-size:1.05rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+.tray__snd{background:none;border:none;cursor:pointer;font-size:1.05rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
 .tray__snd.is-off{opacity:.45}
-.tray__read.is-on{filter:drop-shadow(0 0 5px #ffd21e);animation:narr 1s ease-in-out infinite}
-@keyframes narr{50%{transform:scale(1.14)}}
-
-/* read-aloud buttons inside windows */
-.readbtn{display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;font-weight:700}
-.readbtn.is-on{background:linear-gradient(#ffe6a1,#f2a900);border-color:#c67f00;color:#3a2600}
 .tray__clock{color:#fff;font-size:.82rem;text-shadow:0 1px 1px rgba(0,0,0,.4);min-width:44px;text-align:center}
 
 /* ============ SHUTDOWN ============ */
@@ -354,5 +348,4 @@ body::before{
 @media (prefers-reduced-motion:reduce){
   .marquee__t,.boot__bar-run{animation:none}
   .win.is-open{animation:none}
-  .tray__read.is-on{animation:none}
 }
