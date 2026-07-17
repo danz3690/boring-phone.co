@@ -102,6 +102,8 @@
     if (!wasOpen && !silent) (name === "bin" ? Sound.error : Sound.open)();
     ensureTaskbtn(name);
     syncTasks();
+    if (name === "photos") Slide.setActive(true);
+    if (name === "snake") Snake.setActive(true);
   }
 
   function closeWin(name) {
@@ -110,6 +112,8 @@
     rec.min = false;
     Sound.close();
     if (rec.taskbtn) { rec.taskbtn.remove(); rec.taskbtn = null; }
+    if (name === "photos") Slide.setActive(false);
+    if (name === "snake") Snake.setActive(false);
   }
 
   function minimizeWin(name) {
@@ -118,6 +122,8 @@
     rec.min = true;
     Sound.click();
     syncTasks();
+    if (name === "photos") Slide.setActive(false);
+    if (name === "snake") Snake.setActive(false);
   }
 
   function toggleMax(name) {
@@ -284,6 +290,180 @@
     shutScreen.setAttribute("aria-hidden", "true");
     Sound.open();
   });
+
+  /* ================= PHOTOS SLIDESHOW ================= */
+  var Slide = (function () {
+    var img = document.getElementById("slideImg");
+    if (!img) return { setActive: function () {} };
+    var capEl = document.getElementById("slideCap");
+    var dotsEl = document.getElementById("slideDots");
+    var playBtn = document.getElementById("slidePlay");
+    var barI = document.querySelector("#slideBar i");
+    var DUR = 4200;
+    var photos = [
+      { src: "assets/photo1.png", cap: "Put the phone down." },
+      { src: "assets/photo2.png", cap: "Touch grass — side effects may include joy." },
+      { src: "assets/photo3.png", cap: "Remember dial-up? Patience used to be a feature." },
+      { src: "assets/photo4.png", cap: "0 notifications. As designed." },
+      { src: "assets/photo5.png", cap: "A high score beats a high screen-time." }
+    ];
+    var i = 0, playing = true, active = false, timer = null;
+
+    photos.forEach(function (_, n) {
+      var d = document.createElement("button");
+      d.addEventListener("click", function () { go(n); });
+      dotsEl.appendChild(d);
+    });
+    var dots = dotsEl.children;
+
+    function resetBar() {
+      barI.style.transition = "none";
+      barI.style.width = "0%";
+      void barI.offsetWidth; // reflow
+      if (playing && active) {
+        barI.style.transition = "width " + DUR + "ms linear";
+        barI.style.width = "100%";
+      }
+    }
+    function freezeBar() {
+      var w = getComputedStyle(barI).width;
+      barI.style.transition = "none";
+      barI.style.width = w;
+    }
+    function render() {
+      img.src = photos[i].src;
+      capEl.textContent = photos[i].cap;
+      for (var k = 0; k < dots.length; k++) dots[k].classList.toggle("is-on", k === i);
+      resetBar();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (playing && active) timer = setTimeout(function () { go(i + 1); }, DUR);
+    }
+    function go(n) {
+      i = (n + photos.length) % photos.length;
+      render(); schedule();
+    }
+    function setPlaying(p) {
+      playing = p;
+      playBtn.textContent = p ? "⏸ Pause" : "▶ Play";
+      playBtn.setAttribute("aria-pressed", String(p));
+      if (p) { resetBar(); schedule(); } else { clearTimeout(timer); freezeBar(); }
+    }
+    playBtn.addEventListener("click", function () { setPlaying(!playing); });
+    document.getElementById("slideNext").addEventListener("click", function () { Sound.click(); go(i + 1); });
+    document.getElementById("slidePrev").addEventListener("click", function () { Sound.click(); go(i - 1); });
+
+    render();
+    return {
+      setActive: function (v) {
+        active = v;
+        if (v) { render(); schedule(); } else { clearTimeout(timer); freezeBar(); }
+      }
+    };
+  })();
+
+  /* ================= SNAKE ================= */
+  var Snake = (function () {
+    var canvas = document.getElementById("snakeCanvas");
+    if (!canvas) return { setActive: function () {} };
+    var ctx = canvas.getContext("2d");
+    var CELL = 16, COLS = 19, ROWS = 15;
+    var BG = "#8ccf9c", INK = "#16341f";
+    var scoreEl = document.getElementById("snakeScore");
+    var hiEl = document.getElementById("snakeHi");
+    var overlay = document.getElementById("snakeOverlay");
+    var msgEl = document.getElementById("snakeMsg");
+    var startBtn = document.getElementById("snakeStart");
+
+    var snake, dir, nextDir, food, timer = null, speed, score;
+    var running = false, active = false;
+    var hi = 0;
+    try { hi = parseInt(localStorage.getItem("bp_snake_hi") || "0", 10) || 0; } catch (e) {}
+    hiEl.textContent = hi;
+
+    function rand(n) { return Math.floor(Math.random() * n); }
+    function newFood() {
+      var f;
+      do { f = { x: rand(COLS), y: rand(ROWS) }; }
+      while (snake.some(function (s) { return s.x === f.x && s.y === f.y; }));
+      return f;
+    }
+    function reset() {
+      snake = [{ x: 6, y: 7 }, { x: 5, y: 7 }, { x: 4, y: 7 }];
+      dir = { x: 1, y: 0 }; nextDir = dir;
+      food = newFood(); speed = 135; score = 0; scoreEl.textContent = "0";
+    }
+    function loop() { clearInterval(timer); timer = setInterval(step, speed); }
+    function start() {
+      reset(); draw();
+      overlay.classList.add("is-hidden");
+      running = true; loop();
+    }
+    function step() {
+      dir = nextDir;
+      var head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS ||
+          snake.some(function (s) { return s.x === head.x && s.y === head.y; })) {
+        return gameOver();
+      }
+      snake.unshift(head);
+      if (head.x === food.x && head.y === food.y) {
+        score++; scoreEl.textContent = String(score); Sound.click();
+        food = newFood();
+        if (speed > 75) { speed -= 4; loop(); }
+      } else {
+        snake.pop();
+      }
+      draw();
+    }
+    function gameOver() {
+      running = false; clearInterval(timer); Sound.error();
+      if (score > hi) { hi = score; hiEl.textContent = String(hi);
+        try { localStorage.setItem("bp_snake_hi", String(hi)); } catch (e) {} }
+      msgEl.textContent = "GAME OVER · " + score;
+      startBtn.textContent = "↻ Play again";
+      overlay.classList.remove("is-hidden");
+    }
+    function draw() {
+      ctx.fillStyle = BG; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "rgba(22,52,31,0.10)"; ctx.lineWidth = 1;
+      for (var x = 1; x < COLS; x++) { ctx.beginPath(); ctx.moveTo(x * CELL, 0); ctx.lineTo(x * CELL, ROWS * CELL); ctx.stroke(); }
+      for (var y = 1; y < ROWS; y++) { ctx.beginPath(); ctx.moveTo(0, y * CELL); ctx.lineTo(COLS * CELL, y * CELL); ctx.stroke(); }
+      ctx.fillStyle = INK;
+      ctx.beginPath();
+      ctx.arc(food.x * CELL + CELL / 2, food.y * CELL + CELL / 2, CELL / 2 - 2, 0, Math.PI * 2);
+      ctx.fill();
+      snake.forEach(function (s) { ctx.fillRect(s.x * CELL + 1, s.y * CELL + 1, CELL - 2, CELL - 2); });
+    }
+    function setDir(d) {
+      var map = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
+      var nd = map[d]; if (!nd) return;
+      if (nd.x === -dir.x && nd.y === -dir.y) return; // no 180°
+      nextDir = nd;
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (!active) return;
+      var k = e.key.toLowerCase();
+      var m = { arrowup: "up", w: "up", arrowdown: "down", s: "down",
+                arrowleft: "left", a: "left", arrowright: "right", d: "right" };
+      if (m[k]) { e.preventDefault(); if (running) setDir(m[k]); }
+    });
+    document.querySelectorAll(".snake__pad .dbtn").forEach(function (btn) {
+      btn.addEventListener("click", function () { setDir(btn.dataset.dir); Sound.hover(); });
+    });
+    startBtn.addEventListener("click", start);
+
+    reset(); draw();
+    return {
+      setActive: function (v) {
+        active = v;
+        if (!v) { clearInterval(timer); }
+        else if (running) { loop(); }
+      }
+    };
+  })();
 
   /* ================= BOOT ================= */
   var boot = document.getElementById("boot");

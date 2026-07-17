@@ -37,6 +37,8 @@
       <li><button class="icon" data-open="home" role="menuitem"><span class="icon__img icon__img--home">🖥️</span><span class="icon__label">boringphone.co</span></button></li>
       <li><button class="icon" data-open="detox" role="menuitem"><span class="icon__img icon__img--detox">🧠</span><span class="icon__label">Dopamine Fasting</span></button></li>
       <li><button class="icon" data-open="phones" role="menuitem"><span class="icon__img icon__img--phones">📱</span><span class="icon__label">The Phones</span></button></li>
+      <li><button class="icon" data-open="photos" role="menuitem"><span class="icon__img icon__img--photos2">🖼️</span><span class="icon__label">Photos</span></button></li>
+      <li><button class="icon" data-open="snake" role="menuitem"><span class="icon__img icon__img--snake">🐍</span><span class="icon__label">Snake.exe</span></button></li>
       <li><button class="icon" data-open="facts" role="menuitem"><span class="icon__img icon__img--facts">💡</span><span class="icon__label">Fun Facts.txt</span></button></li>
       <li><button class="icon" data-open="contact" role="menuitem"><span class="icon__img icon__img--contact">📼</span><span class="icon__label">Contact Me</span></button></li>
       <li><button class="icon" data-open="bin" role="menuitem"><span class="icon__img icon__img--bin">🗑️</span><span class="icon__label">Dopamine (Bin)</span></button></li>
@@ -200,6 +202,64 @@
       </div>
     </section>
 
+    <!-- PHOTOS (slideshow) -->
+    <section class="win win--photos2" id="win-photos" data-win="photos" role="dialog" aria-label="Photos">
+      <header class="win__bar">
+        <span class="win__title"><span class="win__ico">🖼️</span> Photos — Slideshow</span>
+        <span class="win__btns">
+          <button class="win__b win__b--min" data-act="min" title="Minimize">_</button>
+          <button class="win__b win__b--max" data-act="max" title="Maximize">▢</button>
+          <button class="win__b win__b--close" data-act="close" title="Close">✕</button>
+        </span>
+      </header>
+      <div class="win__body slideshow">
+        <div class="slide">
+          <img id="slideImg" src="assets/photo1.png" alt="" />
+          <button class="slide__nav slide__nav--prev" id="slidePrev" title="Previous">‹</button>
+          <button class="slide__nav slide__nav--next" id="slideNext" title="Next">›</button>
+          <div class="slide__bar" id="slideBar"><i></i></div>
+        </div>
+        <div class="slide__controls">
+          <button class="xp-btn slide__play" id="slidePlay" aria-pressed="true">⏸ Pause</button>
+          <span class="slide__cap" id="slideCap">Put the phone down.</span>
+          <span class="slide__dots" id="slideDots"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNAKE -->
+    <section class="win win--snake" id="win-snake" data-win="snake" role="dialog" aria-label="Snake">
+      <header class="win__bar">
+        <span class="win__title"><span class="win__ico">🐍</span> Snake.exe</span>
+        <span class="win__btns">
+          <button class="win__b win__b--min" data-act="min" title="Minimize">_</button>
+          <button class="win__b win__b--close" data-act="close" title="Close">✕</button>
+        </span>
+      </header>
+      <div class="win__body snakebody">
+        <div class="snake__hud">
+          <span>SCORE <b id="snakeScore">0</b></span>
+          <span>HI <b id="snakeHi">0</b></span>
+        </div>
+        <div class="snake__screen">
+          <canvas id="snakeCanvas" width="304" height="240" aria-label="Snake game board"></canvas>
+          <div class="snake__overlay" id="snakeOverlay">
+            <p id="snakeMsg">SNAKE</p>
+            <button class="xp-btn xp-btn--go" id="snakeStart">▶ Play</button>
+            <small>arrow keys / WASD · or the pad below</small>
+          </div>
+        </div>
+        <div class="snake__pad" aria-hidden="false">
+          <button class="dbtn dbtn--up" data-dir="up">▲</button>
+          <div class="dbtn__mid">
+            <button class="dbtn dbtn--left" data-dir="left">◀</button>
+            <button class="dbtn dbtn--right" data-dir="right">▶</button>
+          </div>
+          <button class="dbtn dbtn--down" data-dir="down">▼</button>
+        </div>
+      </div>
+    </section>
+
     <!-- BIN (easter egg) -->
     <section class="win win--bin" id="win-bin" data-win="bin" role="dialog" aria-label="Dopamine">
       <header class="win__bar win__bar--err">
@@ -229,6 +289,8 @@
       <button class="sm-item" data-open="home"><span>🖥️</span> boringphone.co</button>
       <button class="sm-item" data-open="detox"><span>🧠</span> Dopamine Fasting</button>
       <button class="sm-item" data-open="phones"><span>📱</span> The Phones</button>
+      <button class="sm-item" data-open="photos"><span>🖼️</span> Photos</button>
+      <button class="sm-item" data-open="snake"><span>🐍</span> Snake.exe</button>
       <button class="sm-item" data-open="facts"><span>💡</span> Fun Facts.txt</button>
       <button class="sm-item" data-open="contact"><span>📼</span> Contact Me</button>
     </div>
