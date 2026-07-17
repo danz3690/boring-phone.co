@@ -38,7 +38,8 @@
       <li><button class="icon" data-open="detox" role="menuitem"><span class="icon__img icon__img--detox">🧠</span><span class="icon__label">Dopamine Fasting</span></button></li>
       <li><button class="icon" data-open="phones" role="menuitem"><span class="icon__img icon__img--phones">📱</span><span class="icon__label">The Phones</span></button></li>
       <li><button class="icon" data-open="photos" role="menuitem"><span class="icon__img icon__img--photos2">🖼️</span><span class="icon__label">Photos</span></button></li>
-      <li><button class="icon" data-open="snake" role="menuitem"><span class="icon__img icon__img--snake">🐍</span><span class="icon__label">Snake.exe</span></button></li>
+      <li><button class="icon" data-open="tetris" role="menuitem"><span class="icon__img icon__img--tetris">🧱</span><span class="icon__label">Tetris.exe</span></button></li>
+      <li><button class="icon" data-open="arcade" role="menuitem"><span class="icon__img icon__img--arcade">🕹️</span><span class="icon__label">Games</span></button></li>
       <li><button class="icon" data-open="facts" role="menuitem"><span class="icon__img icon__img--facts">💡</span><span class="icon__label">Fun Facts.txt</span></button></li>
       <li><button class="icon" data-open="contact" role="menuitem"><span class="icon__img icon__img--contact">📼</span><span class="icon__label">Contact Me</span></button></li>
       <li><button class="icon" data-open="bin" role="menuitem"><span class="icon__img icon__img--bin">🗑️</span><span class="icon__label">Dopamine (Bin)</span></button></li>
@@ -230,36 +231,64 @@
       </div>
     </section>
 
-    <!-- SNAKE -->
-    <section class="win win--snake" id="win-snake" data-win="snake" role="dialog" aria-label="Snake">
+    <!-- TETRIS -->
+    <section class="win win--game" id="win-tetris" data-win="tetris" role="dialog" aria-label="Tetris">
       <header class="win__bar">
-        <span class="win__title"><span class="win__ico">🐍</span> Snake.exe</span>
+        <span class="win__title"><span class="win__ico">🧱</span> Tetris.exe</span>
         <span class="win__btns">
           <button class="win__b win__b--min" data-act="min" title="Minimize">_</button>
           <button class="win__b win__b--close" data-act="close" title="Close">✕</button>
         </span>
       </header>
-      <div class="win__body snakebody">
-        <div class="snake__hud">
-          <span>SCORE <b id="snakeScore">0</b></span>
-          <span>HI <b id="snakeHi">0</b></span>
+      <div class="win__body gamebody">
+        <div class="game__hud">
+          <span>SCORE <b id="tScore">0</b></span>
+          <span>LINES <b id="tLines">0</b></span>
+          <span>LVL <b id="tLevel">1</b></span>
         </div>
-        <div class="snake__screen">
-          <canvas id="snakeCanvas" width="304" height="240" aria-label="Snake game board"></canvas>
-          <div class="snake__overlay" id="snakeOverlay">
-            <p id="snakeMsg">SNAKE</p>
-            <button class="xp-btn xp-btn--go" id="snakeStart">▶ Play</button>
-            <small>arrow keys / WASD · or the pad below</small>
+        <div class="game__screen game__screen--grey">
+          <canvas id="tetrisCanvas" width="140" height="252" aria-label="Tetris board"></canvas>
+          <div class="game__overlay" id="tetrisOverlay">
+            <p id="tetrisMsg">TETRIS</p>
+            <button class="xp-btn xp-btn--go" id="tetrisStart">▶ Play</button>
+            <small>← → move · ↑ rotate · ↓ soft drop · space hard drop</small>
           </div>
         </div>
-        <div class="snake__pad" aria-hidden="false">
-          <button class="dbtn dbtn--up" data-dir="up">▲</button>
-          <div class="dbtn__mid">
-            <button class="dbtn dbtn--left" data-dir="left">◀</button>
-            <button class="dbtn dbtn--right" data-dir="right">▶</button>
-          </div>
-          <button class="dbtn dbtn--down" data-dir="down">▼</button>
+        <div class="game__pad tetris__pad">
+          <button class="dbtn" data-t="left" title="Left">◀</button>
+          <button class="dbtn" data-t="rotate" title="Rotate">⟳</button>
+          <button class="dbtn" data-t="right" title="Right">▶</button>
+          <button class="dbtn" data-t="down" title="Soft drop">▼</button>
+          <button class="dbtn" data-t="drop" title="Hard drop">⤓</button>
         </div>
+      </div>
+    </section>
+
+    <!-- GAMES / ARCADE -->
+    <section class="win win--arcade" id="win-arcade" data-win="arcade" role="dialog" aria-label="Games">
+      <header class="win__bar">
+        <span class="win__title"><span class="win__ico">🕹️</span> Games</span>
+        <span class="win__btns">
+          <button class="win__b win__b--min" data-act="min" title="Minimize">_</button>
+          <button class="win__b win__b--close" data-act="close" title="Close">✕</button>
+        </span>
+      </header>
+      <div class="win__body arcade">
+        <div class="arcade__tabs">
+          <button class="atab is-on" data-game="pinball">🎯 Pinball</button>
+          <button class="atab" data-game="quarantine">🦠 Quarantine</button>
+          <button class="atab" data-game="match">🃏 Match</button>
+        </div>
+        <div class="arcade__stage">
+          <canvas id="arcadeCanvas" width="300" height="360" aria-label="Game board"></canvas>
+          <div class="arcade__cards" id="matchCards" hidden></div>
+          <div class="game__overlay" id="arcadeOverlay">
+            <p id="arcadeMsg">PINBALL</p>
+            <button class="xp-btn xp-btn--go" id="arcadeStart">▶ Play</button>
+            <small id="arcadeHint">flippers: ← → keys or tap left / right</small>
+          </div>
+        </div>
+        <div class="arcade__foot"><span id="arcadeStatus">Pick a game and press Play.</span></div>
       </div>
     </section>
 
@@ -293,7 +322,8 @@
       <button class="sm-item" data-open="detox"><span>🧠</span> Dopamine Fasting</button>
       <button class="sm-item" data-open="phones"><span>📱</span> The Phones</button>
       <button class="sm-item" data-open="photos"><span>🖼️</span> Photos</button>
-      <button class="sm-item" data-open="snake"><span>🐍</span> Snake.exe</button>
+      <button class="sm-item" data-open="tetris"><span>🧱</span> Tetris.exe</button>
+      <button class="sm-item" data-open="arcade"><span>🕹️</span> Games</button>
       <button class="sm-item" data-open="facts"><span>💡</span> Fun Facts.txt</button>
       <button class="sm-item" data-open="contact"><span>📼</span> Contact Me</button>
     </div>
